@@ -1,9 +1,10 @@
 import React from 'react'
-import { Home } from './pages';
+import { Dashboard } from './pages';
+
 
 const App: React.FC = () => {
   return (
-    <Home/>
+    <Dashboard/>
   )
 }
 

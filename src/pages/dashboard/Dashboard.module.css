@@ -1,0 +1,84 @@
+body {
+  overflow-x: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+.container {
+  padding: 10px;
+  display: flex;
+  overflow-x: hidden;
+  height: 100vh;
+  width: 100vw;
+  background: url(../../assets/images/Background.svg);
+  font-family: "ABeeZee", sans-serif;
+}
+
+.sidebar {
+  width: 14vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarContent {
+  padding: 1rem;
+}
+
+.sidebarTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.sidebarNav {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebarNavItem {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.mainArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  color: white;
+  padding: 1rem;
+}
+
+.navbarTitle {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 0.7rem 1.5rem 1.5rem 1.5rem;
+  overflow: auto;
+}
+
+.mainContent::-webkit-scrollbar{
+  display: none;
+}
+
+.mainContentTitle {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.flashCardContainer {
+  padding: 0 1.5rem 0.7rem 1.5rem;
+  overflow: auto;
+}
+
+.flashCards {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 1rem;
+}
