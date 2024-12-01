@@ -5,3 +5,6 @@ export { default as StatsCard } from './StatsCard/StatsCard';
 export { default as Calendar } from './Calendar/Calendar';
 export { default as MoodIndicator } from './MoodIndicator/MoodIndicator';
 export { default as Chart } from './Chart/Chart';
+export { default as SentimentScore } from './SentimentScore/SentimentScore';
+export { default as QuestionCard } from './QuestionCard/QuestionCard';
+export { default as ImprovementBoard } from './ImprovementBoard/ImprovementBoard';
