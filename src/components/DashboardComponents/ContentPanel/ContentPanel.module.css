@@ -16,7 +16,7 @@
 .card1 {
   height: auto;
   flex-grow: 1;
-  background: url(../../../assets/images/WelcomeCard.png);
+  background: url(../../../assets/images/WelcomeCard.webp);
   background-size: cover;
   background-repeat: no-repeat;
   padding: 20px;

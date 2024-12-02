@@ -6,6 +6,7 @@ interface SentimentScoreCardProps {
   sentimentScore: number;
   sentimentPolarity: string;
   sentimentMessage: string;
+  progressGradient: number;
 }
 
 const SentimentScoreCard: React.FC<SentimentScoreCardProps> = ({
