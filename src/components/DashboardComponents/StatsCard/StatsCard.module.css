@@ -2,16 +2,17 @@
     background-color: #ffffff;
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 1vh;
+    padding: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex: 1 1 calc(25% - 1rem);
+    flex: 1 1 calc(25% - 1rem); 
     max-width: calc(25% - 1rem);
+    box-sizing: border-box;
 }
 
 .iconBox {
-    background-color: rgba(108, 215, 83, 0.72);;
+    background-color: rgba(108, 215, 83, 0.72);
     border-radius: 10px;
     padding: 0.75rem;
 }
@@ -38,9 +39,10 @@
     margin-bottom: -8px;
 }
 
-.statsContainer{
+.statsContainer {
     display: flex;
-    text-align: center;
+    flex-wrap: wrap;
+    gap: 1rem; 
 }
 
 .stats {
@@ -51,9 +53,34 @@
 }
 
 .progress {
-    margin: 0 1.5vh;
     font-size: 1rem;
     font-weight: 500;
     color: #4CAF50;
     margin-top: 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .statsCard {
+        flex: 1 1 calc(50% - 1rem); 
+        max-width: calc(50% - 1rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .statsCard {
+        max-width: 100%;
+        margin: 0.5rem 0;
+    }
+
+    .iconBox {
+        display: none; 
+    }
+
+    .container {
+        padding-left: 0; 
+    }
+
+    .statsContainer {
+        gap: 0.5rem; 
+    }
 }

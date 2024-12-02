@@ -6,7 +6,6 @@
 }
 
 .card {
-  width: 38%;
   height: 290px;
   background-color: #f8f8f8;
   border-radius: 20px;
@@ -17,7 +16,7 @@
 .card1 {
   height: auto;
   flex-grow: 1;
-  background: url(../../assets/images/WelcomeCard.png);
+  background: url(../../../assets/images/WelcomeCard.png);
   background-size: cover;
   background-repeat: no-repeat;
   padding: 20px;
@@ -65,12 +64,12 @@
 }
 
 .card2 {
-  width: 25%;
+  width: 300px;
   height: auto;
 }
 
 .card3 {
-  width: 30%;
+  width: 350px;
   padding: 25px 30px;
   background-color: #fff;
   border-radius: 20px;
@@ -99,6 +98,7 @@
 
 .card5 {
   height: 380px;
+  width: 488px;
   padding: 20px;
 }
 
@@ -110,5 +110,6 @@
 
 .card7{
   height: 380px;
+  width: 488px;
   padding: 20px;
 }

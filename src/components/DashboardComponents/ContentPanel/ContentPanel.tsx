@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ContentPanel.module.css";
 import { MoveRight } from "lucide-react";
-import {Calendar,  Chart,  ImprovementBoard,  MoodIndicator, QuestionCard, SentimentScore} from "../index";
+import {Calendar,  Chart,  ImprovementBoard,  MoodIndicator, QuestionCard, SentimentScore} from "../../index";
 
 const ContentPanel: React.FC = () => {
 
@@ -41,7 +41,7 @@ const ContentPanel: React.FC = () => {
         </div>
       </div>
       <div className={`${styles.card} ${styles.card2}`}>
-        <MoodIndicator progress={50}/>
+        <MoodIndicator progress={78}/>
       </div>
       <div className={`${styles.card} ${styles.card3}`}>
         <Calendar/>

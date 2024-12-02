@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./QuestionCard.module.css";
-import { Coin } from "../../assets/images";
+import { Coin } from "../../../assets/images";
 
 // interface QuestionCardProps {
 

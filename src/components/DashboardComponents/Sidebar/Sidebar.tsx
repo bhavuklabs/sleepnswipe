@@ -1,5 +1,5 @@
 import React from "react";
-import queMark from "../../assets/images/questionMarkIcon.png";
+import queMark from "../../../assets/images/questionMarkIcon.png";
 import {
   Heart,
   LayoutDashboard,
@@ -12,6 +12,7 @@ import {
   FileText,
   CreditCard,
   Rocket,
+  ArrowRight,
 } from "lucide-react";
 import styles from "./Sidebar.module.css";
 
@@ -38,6 +39,9 @@ const Sidebar: React.FC = () => {
     <div className={styles.sidebar}>
       <div className={styles.title}>
         <h1>HeartLine</h1>
+        <div className={styles.toggle}>
+          <ArrowRight />
+        </div>
       </div>
 
       {/* Divider Line */}

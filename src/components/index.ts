@@ -1,10 +1,12 @@
-export { default as Sidebar } from './Sidebar/Sidebar';
-export { default as DashboardNavbar } from './DashboardNavbar/DashboardNavbar';
-export { default as ContentPanel } from './ContentPanel/ContentPanel';
-export { default as StatsCard } from './StatsCard/StatsCard';
-export { default as Calendar } from './Calendar/Calendar';
-export { default as MoodIndicator } from './MoodIndicator/MoodIndicator';
-export { default as Chart } from './Chart/Chart';
-export { default as SentimentScore } from './SentimentScore/SentimentScore';
-export { default as QuestionCard } from './QuestionCard/QuestionCard';
-export { default as ImprovementBoard } from './ImprovementBoard/ImprovementBoard';
+// Dashboard Exports
+export { default as Sidebar } from './DashboardComponents/Sidebar/Sidebar';
+export { default as DashboardNavbar } from './DashboardComponents/DashboardNavbar/DashboardNavbar';
+export { default as ContentPanel } from './DashboardComponents/ContentPanel/ContentPanel';
+export { default as StatsCard } from './DashboardComponents/StatsCard/StatsCard';
+export { default as Calendar } from './DashboardComponents/Calendar/Calendar';
+export { default as MoodIndicator } from './DashboardComponents/MoodIndicator/MoodIndicator';
+export { default as Chart } from './DashboardComponents/Chart/Chart';
+export { default as SentimentScore } from './DashboardComponents/SentimentScore/SentimentScore';
+export { default as QuestionCard } from './DashboardComponents/QuestionCard/QuestionCard';
+export { default as ImprovementBoard } from './DashboardComponents/ImprovementBoard/ImprovementBoard';
+
