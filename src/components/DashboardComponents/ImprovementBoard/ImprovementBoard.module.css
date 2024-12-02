@@ -1,0 +1,56 @@
+.title {
+    color: #141B34;
+    -webkit-text-stroke-width: 0.5;
+    -webkit-text-stroke-color: #000;
+    font-family: "ADLaM Display";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+}
+
+.subtitle {
+    color: #01B574;
+    font-family: "ADLaM Display";
+    font-size: 1.5vh;
+    font-weight: 500;
+    padding-top: 4px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.table>thead>tr>th {
+    color: #020515;
+    font-family: "ADLaM Display";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.table th,
+.table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #141B34;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.improve {
+    text-align: center !important;
+}
+
+.positiveImprovement {
+    color: #4CAF50;
+}
+
+.negativeImprovement {
+    color: #F44336;
+}

@@ -1,0 +1,182 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.left {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.title {
+    font-size: 2vh;
+    font-family: "ADLaM Display";
+}
+
+.scoreBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.scoreBox>div {
+    color: #3A4750;
+    text-align: center;
+    font-family: "ADLaM Display";
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+}
+
+.scoreBox>span {
+    color: #49525D;
+    text-align: center;
+    font-family: ABeeZee;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+}
+
+.moodBox {
+    display: flex;
+    flex-direction: column;
+    height: 5rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.moodBox>span {
+    color: #49525D;
+    text-align: center;
+    font-family: ABeeZee;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+}
+
+.right {
+    width: 50%;
+    position: relative;
+    padding-top: 20px;
+}
+
+.sentimentIndicatorBox {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.progress {
+    position: absolute;
+    z-index: 2;
+    background: conic-gradient(from 180deg,
+            #6CD753 0% 56%,
+            rgba(0, 117, 255, 0.2) 56% 100%);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.innerPie {
+    position: absolute;
+    z-index: 3;
+    background-color: #f8f8f8;
+    border-radius: 50%;
+    width: 85%;
+    height: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.innerPie>span {
+    color: var(--Gray-Gray-400, #A0AEC0);
+    text-align: center;
+    font-family: "ADLaM Display";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+}
+
+.important {
+    display: flex;
+    width: 100%;
+    padding: 2rem 1rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.important>span {
+    color: #E01E5A;
+    text-align: center;
+    font-family: "ADLaM Display";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.important>p {
+    color: #020515;
+    text-align: center;
+    font-family: "ADLaM Display";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.mood {
+    display: inherit;
+    justify-content: center;
+    align-items: center;
+    background-color: #6CD753;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+}
+
+.mood>svg {
+    stroke: #f8f8f8;
+}
+
+.left>button {
+    display: inline-flex;
+    padding: 10px 50px;
+    color: #141B33;
+    font-family: "ADLaM Display";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    border-radius: 20px;
+    border: 1px solid #6CD753;
+    background: rgba(108, 215, 83, 0.2);
+    backdrop-filter: blur(60px);
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.left > button:hover{
+    background: rgba(108, 215, 83, 0.5);
+}

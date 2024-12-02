@@ -1,8 +1,11 @@
-import React from 'react';
-import{ Home } from './pages'
+import React from 'react'
+import { Dashboard } from './pages';
+
 
 const App: React.FC = () => {
-  return <h1>Hello, React with Webpack and TypeScript!</h1>;
-};
+  return (
+    <Dashboard/>
+  )
+}
 
 export default App;

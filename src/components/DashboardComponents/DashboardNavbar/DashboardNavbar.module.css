@@ -1,0 +1,89 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  font-family: "ABeeZee", sans-serif;
+}
+
+.title {
+  font-size: 1.5vh;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.title > span > span {
+  color: #77e160;
+  letter-spacing: 1px;
+}
+
+.title > p{
+  padding: 5px 0 0 0;
+  font-size: 16px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5vw;
+}
+
+.searchWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  border-radius: 15px;
+  border: 0.5px solid rgba(226, 232, 240, 0.30);
+  background: #F8F8F8;
+  box-shadow: 2px 2px 15px 0px rgba(0, 0, 0, 0.25);
+  padding: 0.5rem 2rem 0.5rem 2.5rem;
+  width: 15vw;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.searchInput:focus {
+  border-color: #91df80;
+  box-shadow: 0 0 0 2px rgba(133, 221, 113, 0.4);
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.75rem;
+  color: #6b7280;
+}
+
+.icon {
+  cursor: pointer;
+  color: #4b5563;
+  transition: color 0.2s, fill 0.2s;
+}
+
+.icon > svg {
+  fill: #ffffff00; 
+  transition: fill 0.2s;
+}
+
+.icon:hover > svg {
+  fill: #1f2937;
+}
+
+.icon:hover {
+  color: #1f2937; 
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.profilePic {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  border: 2px solid #e5e7eb;
+  object-fit: cover;
+}
