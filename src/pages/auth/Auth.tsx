@@ -1,22 +1,59 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Google, Facebook, Apple, Logo } from "../../assets/images";
 import Slider from "../../components/ImageSlider/ImageSlider";
 import styles from "./Auth.module.css";
 import { useNavigate } from "react-router-dom";
-
-
-
+import { storeUserData } from '../../utils';
 
 const Auth: React.FC = () => {
   const [isSignup, setIsSignup] = useState(false);
-
   const navigate = useNavigate();
 
+  useEffect(() => {
+    localStorage.clear();
+    console.log("Local storage cleared.");
+  }, []);
+
+
+  // Handle Login
   const handleSubmit = (e: React.FormEvent) => {
-    navigate("/questions");
     e.preventDefault();
+
+    const formData = new FormData(e.target as HTMLFormElement);
+
+    const email = formData.get('loginEmail') as string;
+    const password = formData.get('loginPassword') as string;
+    console.log(email)
+    console.log(password)
+  
+    if (!email || !password) {
+      console.error("Email or password field is missing.");
+      return;
+    }
+  
+    storeUserData("login", { email, password });
+  
+    console.log("Login details stored:", { email, password });
+  
+    navigate("/questions");
   };
   
+  
+  
+
+  // Handle Signup
+  const handleSignup = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const name = (e.target as HTMLFormElement).name;
+    const email = (e.target as HTMLFormElement).email.value;
+    const password = (e.target as HTMLFormElement).password.value;
+
+    storeUserData("signup", { name, email, password }); 
+    console.log("Signup details stored:", { name, email, password });
+
+    setIsSignup(false); 
+  };
 
   const AuthButton = ({ icon }: { icon: string }) => (
     <button className={styles.authButton}>
@@ -99,12 +136,14 @@ const Auth: React.FC = () => {
         <form className={styles.form} onSubmit={handleSubmit}>
           <input
             type="email"
+            name="loginEmail"
             className={styles.input}
             placeholder="Email"
             required
           />
           <input
             type="password"
+            name="loginPassword"
             className={styles.input}
             placeholder="Password"
             required
@@ -192,10 +231,25 @@ const Auth: React.FC = () => {
             </defs>
           </svg>
         </div>
-        <form className={styles.form}>
-          <input type="text" className={styles.input} placeholder="Full Name" required />
-          <input type="email" className={styles.input} placeholder="Email" required />
-          <input type="password" className={styles.input} placeholder="Password" required />
+        <form className={styles.form} onSubmit={handleSignup}>
+          <input
+            type="text"
+            className={styles.input}
+            placeholder="Full Name"
+            required
+          />
+          <input
+            type="email"
+            className={styles.input}
+            placeholder="Email"
+            required
+          />
+          <input
+            type="password"
+            className={styles.input}
+            placeholder="Password"
+            required
+          />
           <button type="submit" className={styles.submitButton}>Sign Up</button>
         </form>
         <div className={styles.footer}>

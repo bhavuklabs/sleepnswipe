@@ -19,7 +19,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({
     email: string;
     responses: Array<{ question: string; options: string }>;
   }>({
-    email: "anish@gmail.com", // Add the user's email here
+    email: "", // Add the user's email here
     responses: [],
   });
   const [animationKey, setAnimationKey] = useState(0);
@@ -32,6 +32,17 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({
   const navigate = useNavigate();
 
   useEffect(() => {
+    const loginDetails = localStorage.getItem('loginDetails');
+    if (loginDetails) {
+      const parsedDetails = JSON.parse(loginDetails);
+      setResponses((prev) => ({
+        ...prev,
+        email: parsedDetails.email, 
+      }));
+    }
+  }, []);
+  
+  useEffect(() => {
     // Fetch questions from the API
     const fetchQuestions = async () => {
       try {
@@ -43,7 +54,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({
         console.error("Error fetching questions:", error);
       }
     };
-
+    
     fetchQuestions();
   }, []);
 
@@ -53,7 +64,6 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({
         "localhost:8080/onboarding/generate-and-save-scores",
         responses
       );
-      console.log("Responses sent to backend successfully!");
     } catch (error) {
       console.error("Error sending responses to backend:", error);
     }
@@ -66,7 +76,6 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({
       setWidth(100);
     } else {
       setIsCompleted(true);
-      console.log("Questionnaire completed", responses);
       setIsAuthenticated(true);
       sendResponses();
 
@@ -77,7 +86,6 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({
   }, [
     currentQuestionIndex,
     questions.length,
-    responses,
     setIsAuthenticated,
     sendResponses,
     navigate,

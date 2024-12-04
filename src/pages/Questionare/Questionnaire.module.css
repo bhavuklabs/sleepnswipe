@@ -125,7 +125,7 @@
   .completionMessage {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     height: 100vh; 
     background-color: #f8f9fa; 
     text-align: center;
