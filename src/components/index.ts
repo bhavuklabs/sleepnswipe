@@ -10,4 +10,7 @@ export { default as SentimentScore } from './DashboardComponents/SentimentScore/
 export { default as QuestionCard } from './DashboardComponents/QuestionCard/QuestionCard';
 export { default as ImprovementBoard } from './DashboardComponents/ImprovementBoard/ImprovementBoard';
 
-export { default as Login} from './AuthComponents/Login/Login';
+
+export { default as InfoArea } from './InfoArea/InfoArea';
+export { default as MatchZone } from './MatchZone/MatchZone';
+export { default as SwipeCards } from './SwipeCard/SwipeCard';

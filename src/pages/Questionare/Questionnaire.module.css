@@ -1,0 +1,123 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    margin-right: 15px;
+    border-radius: 50%;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.questionNum {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    font-size: 2rem;
+    font-family: "ABeeZee", serif;
+    font-weight: 500;
+    font-style: normal;
+    margin-top: 1rem;
+}
+
+.questionContainer {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+}
+
+.question {
+    color: #000;
+    text-align: center;
+    font-family: var(--font-primary);
+    font-size: 2rem;
+    margin-bottom: 4rem;
+    padding: 0 5rem;
+    width: 70%;
+}
+
+.optionsContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.option {
+    width: 100%;
+    height: 80px;
+    padding: 1rem 1.5rem;
+    border-radius: 20px;
+    border: none;
+    background: #C1E4EF !important;
+    font-family: "Poppins", serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+.option:hover {
+    background-color: #f0f0f0;
+    border-color: #3498db;
+}
+
+.slideIn {
+    animation: slideInLeft 0.5s ease forwards;
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+
+.timerBarContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background-color: #e3f2fd;
+  }
+  
+  .timerBar {
+    height: 100%;
+    background: linear-gradient(to right, #90caf9, #64b5f6);
+    transition: width 0.1s linear; /* Smooth shrinking */
+  }
+  

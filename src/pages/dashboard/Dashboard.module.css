@@ -57,29 +57,4 @@ body {
   line-height: 2rem;
 }
 
-.mainContent {
-  flex: 1;
-  overflow: auto;
-  padding: 0.5rem 0 0 20px;
-}
 
-.mainContent::-webkit-scrollbar{
-  display: none;
-}
-
-.mainContentTitle {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-}
-
-.flashCardContainer {
-  padding: 0 0 0.5rem 20px;
-  overflow: auto;
-}
-
-.flashCards {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  gap: 1rem;
-}

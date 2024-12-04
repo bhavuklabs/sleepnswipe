@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useLocation } from 'react-router-dom';
 import queMark from "../../../assets/images/questionMarkIcon.png";
 import {
   Heart,
@@ -19,18 +20,24 @@ import styles from "./Sidebar.module.css";
 interface SidebarButtonProps {
   icon: React.ReactNode;
   text: string;
+  to: string;
 }
 
-const SidebarButton: React.FC<SidebarButtonProps> = ({ icon, text }) => {
+const SidebarButton: React.FC<SidebarButtonProps> = ({ icon, text, to }) => {
+  const location = useLocation();
+  const isActive = location.pathname === to;
+
   return (
-    <button className={styles.sidebarButton}>
+    <Link to={to} className={styles.link}>
+    <button className={`${styles.sidebarButton} ${isActive ? styles.activeButton : ''}`}>
       {typeof icon === "string" ? (
         <img src={icon} alt="" />
       ) : (
-        <span>{icon}</span>
+        <span className={isActive ? styles.activeIcon : ''}>{icon}</span>
       )}
       <span>{text}</span>
     </button>
+    </Link>
   );
 };
 
@@ -74,22 +81,22 @@ const Sidebar: React.FC = () => {
       {/* Navigation Buttons */}
       <nav className={styles.nav}>
         <div className={styles.buttonGroup}>
-          <SidebarButton icon={<LayoutDashboard />} text="Dashboard" />
-          <SidebarButton icon={<Heart />} text="Match Zone" />
-          <SidebarButton icon={<Trophy />} text="Challenges" />
-          <SidebarButton icon={<Users />} text="Community Hub" />
-          <SidebarButton icon={<Award />} text="Rewards" />
-          <SidebarButton icon={<Coins />} text="Token Store" />
+          <SidebarButton icon={<LayoutDashboard />} text="Dashboard" to="/"/>
+          <SidebarButton icon={<Heart />} text="Match Zone" to="/matchzone"/>
+          <SidebarButton icon={<Trophy />} text="Challenges" to="/challenges"/>
+          <SidebarButton icon={<Users />} text="Community Hub" to="/communityhub"/>
+          <SidebarButton icon={<Award />} text="Rewards" to="/rewards"/>
+          <SidebarButton icon={<Coins />} text="Token Store" to="/tokenstore"/>
         </div>
 
         {/* Account Settings Section */}
         <div className={styles.accountSettings}>
           <p className={styles.accountSettingsText}>Account Settings</p>
-          <SidebarButton icon={<User />} text="Profile" />
-          <SidebarButton icon={<FileText />} text="Reports" />
-          <SidebarButton icon={<Settings />} text="Settings" />
-          <SidebarButton icon={<CreditCard />} text="Billing" />
-          <SidebarButton icon={<Rocket />} text="Upgrade to Pro" />
+          <SidebarButton icon={<User />} text="Profile" to="/profile"/>
+          <SidebarButton icon={<FileText />} text="Reports" to="/reports"/>
+          <SidebarButton icon={<Settings />} text="Settings" to="/settings"/>
+          <SidebarButton icon={<CreditCard />} text="Billing" to="/billing"/>
+          <SidebarButton icon={<Rocket />} text="Upgrade to Pro" to="/upgradetopro"/>
         </div>
         <div className={styles.learnCard}>
           <img src={queMark} alt="" />
