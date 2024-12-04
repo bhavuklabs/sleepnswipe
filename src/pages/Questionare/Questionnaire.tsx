@@ -2,105 +2,89 @@ import React, { useEffect, useState, useCallback } from "react";
 import styles from "./Questionnaire.module.css";
 import { Logo } from "../../assets/images";
 import { useNavigate } from "react-router-dom";
-
-const QUESTIONS = {
-  questions: [
-    {
-      question: "You're at a party. Do you:",
-      options: [
-        "Mingle with everyone and try to meet new people.",
-        "Stick with a small group of close friends.",
-        "Find a quiet corner to observe.",
-        "Try to find the host and help them out.",
-      ],
-    },
-    {
-      question:
-        "Imagine you're faced with a challenging problem at work. You are most likely to:",
-      options: [
-        "Jump in and try to solve it immediately.",
-        "Analyze the problem carefully before taking action.",
-        "Seek advice from others before making a decision.",
-        "Delegate parts of the problem to others.",
-      ],
-    },
-    {
-      question:
-        "Scenario: You're on a team project and a team member isn't pulling their weight. How do you respond?",
-      options: [
-        "Confront them directly and express your concerns.",
-        "Talk to the project leader about the situation.",
-        "Try to subtly help them catch up without making a fuss.",
-        "Let it go and focus on your own contributions.",
-      ],
-    },
-    {
-      question:
-        "Scenario: A friend asks you for a significant favor that will inconvenience you. How do you respond?",
-      options: [
-        "Agree to help, even if it means making sacrifices.",
-        "Explain your limitations and offer an alternative solution.",
-        "Politely decline, stating your reasons clearly.",
-        "Feel obligated to say yes, even if you resent it.",
-      ],
-    },
-    {
-      question:
-        "Scenario: You are having a disagreement with a family member. How do you typically handle it?",
-      options: [
-        "Engage in a calm discussion to find a compromise.",
-        "Avoid the conflict altogether and hope it resolves itself.",
-        "Express your feelings intensely and passionately.",
-        "Become withdrawn and silent until the situation cools down.",
-      ],
-    },
-    {
-      question:
-        "As a child, your parents’ parenting style was best described as:",
-      options: [
-        "Authoritative (high expectations, high responsiveness)",
-        "Authoritarian (high expectations, low responsiveness)",
-        "Permissive (low expectations, high responsiveness)",
-        "Uninvolved (low expectations, low responsiveness)",
-      ],
-    },
-  ],
-};
+import {
+  FetchOnboardingQuestions,
+  SendQuestionnaireResponses,
+} from "../../hooks";
 
 interface QuestionnaireProps {
   setIsAuthenticated: (value: boolean) => void;
 }
 
-const Questionnaire: React.FC<QuestionnaireProps> = ({setIsAuthenticated}) => {
+const Questionnaire: React.FC<QuestionnaireProps> = ({
+  setIsAuthenticated,
+}) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [responses, setResponses] = useState<{
     email: string;
     responses: Array<{ question: string; options: string }>;
   }>({
-    email: "",
+    email: "anish@gmail.com", // Add the user's email here
     responses: [],
   });
   const [animationKey, setAnimationKey] = useState(0);
   const [width, setWidth] = useState(100);
   const [isCompleted, setIsCompleted] = useState(false);
-  
+  const [questions, setQuestions] = useState<
+    Array<{ question: string; options: string[] }>
+  >([]);
+
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Fetch questions from the API
+    const fetchQuestions = async () => {
+      try {
+        const data = await FetchOnboardingQuestions(
+          "http://localhost:8080/onboarding/send"
+        ); //api call
+        setQuestions(data.questions);
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+      }
+    };
+
+    fetchQuestions();
+  }, []);
+
+  const sendResponses = useCallback(async () => {
+    try {
+      await SendQuestionnaireResponses(
+        "localhost:8080/onboarding/generate-and-save-scores",
+        responses
+      );
+      console.log("Responses sent to backend successfully!");
+    } catch (error) {
+      console.error("Error sending responses to backend:", error);
+    }
+  }, [responses]);
+
   const moveToNextQuestion = useCallback(() => {
-    if (currentQuestionIndex < QUESTIONS.questions.length - 1) {
+    if (currentQuestionIndex < questions.length - 1) {
       setAnimationKey((prev) => prev + 1);
       setCurrentQuestionIndex((prev) => prev + 1);
-      setWidth(100); // Reset the timer for the next question
+      setWidth(100);
     } else {
-      setIsCompleted(true); // Mark the questionnaire as completed
+      setIsCompleted(true);
       console.log("Questionnaire completed", responses);
       setIsAuthenticated(true);
-      navigate('/');
+      sendResponses();
+
+      setTimeout(() => {
+        navigate("/");
+      }, 5000);
     }
-  }, [currentQuestionIndex, navigate, responses, setIsAuthenticated]);
+  }, [
+    currentQuestionIndex,
+    questions.length,
+    responses,
+    setIsAuthenticated,
+    sendResponses,
+    navigate,
+  ]);
 
   const handleTimeOut = useCallback(() => {
-    const currentQuestion = QUESTIONS.questions[currentQuestionIndex];
+    const currentQuestion = questions[currentQuestionIndex];
     setResponses((prev) => ({
       ...prev,
       responses: [
@@ -112,10 +96,10 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({setIsAuthenticated}) => {
       ],
     }));
     moveToNextQuestion();
-  }, [currentQuestionIndex, moveToNextQuestion]);
+  }, [currentQuestionIndex, moveToNextQuestion, questions]);
 
   useEffect(() => {
-    if (isCompleted) return; // Stop the timer when completed
+    if (isCompleted || questions.length === 0) return;
 
     const interval = setInterval(() => {
       setWidth((prevWidth) => {
@@ -128,10 +112,10 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({setIsAuthenticated}) => {
       });
     }, 300);
     return () => clearInterval(interval);
-  }, [handleTimeOut, isCompleted]);
+  }, [handleTimeOut, isCompleted, questions]);
 
   const handleOptionSelect = (option: string) => {
-    const currentQuestion = QUESTIONS.questions[currentQuestionIndex];
+    const currentQuestion = questions[currentQuestionIndex];
     setResponses((prev) => ({
       ...prev,
       responses: [
@@ -152,7 +136,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({setIsAuthenticated}) => {
         <span className={styles.title}>SleepNSwipe</span>
       </header>
 
-      {!isCompleted ? (
+      {!isCompleted && questions.length > 0 ? (
         <>
           <div className={styles.timerBarContainer}>
             <div
@@ -162,7 +146,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({setIsAuthenticated}) => {
           </div>
 
           <div className={styles.questionNum}>
-            Question {currentQuestionIndex + 1}/{QUESTIONS.questions.length}
+            Question {currentQuestionIndex + 1}/{questions.length}
           </div>
 
           <div
@@ -170,28 +154,31 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({setIsAuthenticated}) => {
             className={`${styles.questionContainer} ${styles.slideIn}`}
           >
             <h2 className={styles.question}>
-              {QUESTIONS.questions[currentQuestionIndex].question}
+              {questions[currentQuestionIndex].question}
             </h2>
 
             <div className={styles.optionsContainer}>
-              {QUESTIONS.questions[currentQuestionIndex].options.map(
-                (option, index) => (
-                  <div
-                    key={index}
-                    className={styles.option}
-                    onClick={() => handleOptionSelect(option)}
-                  >
-                    {option}
-                  </div>
-                )
-              )}
+              {questions[currentQuestionIndex].options.map((option, index) => (
+                <div
+                  key={index}
+                  className={styles.option}
+                  onClick={() => handleOptionSelect(option)}
+                >
+                  {option}
+                </div>
+              ))}
             </div>
           </div>
         </>
       ) : (
         <div className={styles.completionMessage}>
-          <h2>Thank you for completing the questionnaire!</h2>
-          <p>Your responses have been recorded.</p>
+          <div className={styles.thankYouContainer}>
+            <h2>🎉 Thank you for completing the questionnaire!</h2>
+            <p>
+              Your responses have been recorded. Redirecting to the homepage in
+              5 seconds...
+            </p>
+          </div>
         </div>
       )}
     </div>

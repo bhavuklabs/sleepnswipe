@@ -118,6 +118,38 @@
   .timerBar {
     height: 100%;
     background: linear-gradient(to right, #90caf9, #64b5f6);
-    transition: width 0.1s linear; /* Smooth shrinking */
+    transition: width 0.1s linear; 
+  }
+  
+
+  .completionMessage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    background-color: #f8f9fa; 
+    text-align: center;
+  }
+  
+  .thankYouContainer {
+    background: #ffffff; 
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem 3rem; 
+    max-width: 600px; 
+    width: 90%;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .thankYouContainer h2 {
+    font-size: 1.8rem;
+    color: #4CAF50; 
+    margin-bottom: 1rem;
+  }
+  
+  .thankYouContainer p {
+    font-size: 1rem;
+    color: #333333; 
+    line-height: 1.5;
   }
   
