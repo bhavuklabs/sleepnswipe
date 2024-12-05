@@ -1,6 +1,6 @@
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 
-// Define the interface without sleepRecord
 interface DashboardData {
   overallSentimentScore: number;
   personalityType: string;
@@ -33,35 +33,30 @@ const useDashboardData = () => {
 
     const fetchDashboardData = async () => {
       try {
-        const response = await fetch('http://localhost:8080/user/data', {
-          method: 'GET',
+        const response = await axios.get('http://localhost:8080/user/data', {
           headers: {
             'Content-Type': 'application/json',
           },
-          // Sending email in query instead of body
-          body: JSON.stringify({ email: parsedDetails[0].email }),
+          params: {
+            email: parsedDetails[0].email,
+          },
         });
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
-
-        const result = await response.json();
         
-        // Set data excluding sleepRecord (which isn't needed now)
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { sleepRecord, ...dashboardDataWithoutSleepRecord } = result;
+        const { sleepRecord, ...dashboardDataWithoutSleepRecord } = response.data;
         setData(dashboardDataWithoutSleepRecord);
-
+        console.log(response);
+    
       } catch (err) {
-        console.log(err);
+        console.error(err);
         setError('Error fetching dashboard data');
       } finally {
         setLoading(false);
       }
     };
-
+    
     fetchDashboardData();
+    
   }, []);
 
   return { data, loading, error };

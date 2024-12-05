@@ -1,15 +1,44 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./SwipeCard.module.css";
 import Hammer from "hammerjs";
 import { Heart, X, MessageCircleHeart } from "lucide-react";
 
 const SwipeCards: React.FC = () => {
+  // State to store fetched Unsplash images
+  const [images, setImages] = useState<string[]>([]);
+
   useEffect(() => {
+    // Fetch images from Unsplash API
+    const fetchImages = async () => {
+      const accessKey = "iqbaNGfK_62oWEeq0ODZ6kUiZIsDJA0d4CZdvkYVPNk"; 
+      const url = `https://api.unsplash.com/search/photos?query=woman+full+body&per_page=5`;
+
+      try {
+        const response = await fetch(url, {
+          headers: {
+            Authorization: `Client-ID ${accessKey}`,
+          },
+        });
+
+        const data = await response.json();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const imageUrls = data.results.map((photo: any) => photo.urls.regular); 
+        setImages(imageUrls);
+      } catch (error) {
+        console.error("Error fetching images from Unsplash:", error);
+      }
+    };
+
+    fetchImages();
+
+    // Swipe functionality
     const allCards = Array.from(
       document.querySelectorAll(`.${styles.swipeCard}`)
     ) as HTMLElement[];
 
-    const swipeContainer = document.querySelector(`.${styles.swipe}`) as HTMLElement;
+    const swipeContainer = document.querySelector(
+      `.${styles.swipe}`
+    ) as HTMLElement;
     const nope = document.getElementById("nope");
     const love = document.getElementById("love");
 
@@ -24,7 +53,7 @@ const SwipeCards: React.FC = () => {
       card.classList.add(styles.removed);
 
       setTimeout(() => {
-        card.style.display = "none"; // Remove card visually after animation
+        card.style.display = "none";
         reorderCards();
       }, 300);
     };
@@ -36,7 +65,9 @@ const SwipeCards: React.FC = () => {
 
       remainingCards.forEach((card, index) => {
         card.style.zIndex = `${remainingCards.length - index}`;
-        card.style.transform = `scale(${(20 - index) / 20}) translateY(-${30 * index}px)`;
+        card.style.transform = `scale(${(20 - index) / 20}) translateY(-${
+          30 * index
+        }px)`;
         card.style.opacity = `${(10 - index) / 10}`;
       });
     };
@@ -87,32 +118,43 @@ const SwipeCards: React.FC = () => {
   return (
     <div className={styles.swipe}>
       <div className={styles.swipeCards}>
-        {[1, 2, 3, 4, 5].map((index) => (
-          <div key={index} id={`card-${index}`} className={styles.swipeCard}>
-            <img
-              src={`https://picsum.photos/600/300?random=${index}`}
-              alt={`Card ${index}`}
-            />
-            <h3>Demo card {index}</h3>
-            <p>This is a demo for swipe-like cards</p>
-          </div>
-        ))}
+        {images.length > 0
+          ? images.map((url, index) => (
+              <div key={index} id={`card-${index}`} className={styles.swipeCard}>
+                <img src={url} alt={`Card ${index}`} />
+                <h3>Demo card {index + 1}</h3>
+                <p>This is a demo for swipe-like cards</p>
+              </div>
+            ))
+          : [1, 2, 3, 4, 5].map((index) => (
+              <div key={index} id={`card-${index}`} className={styles.swipeCard}>
+                <img
+                  src={`https://picsum.photos/600/300?random=${index}`}
+                  alt={`Card ${index}`}
+                />
+                <h3>Demo card {index}</h3>
+                <p>This is a demo for swipe-like cards</p>
+              </div>
+            ))}
       </div>
 
       <div className={styles.actionButtons}>
         <button
           id="nope"
-          className={`${styles.actionButton} ${styles.skipButton}`}>
+          className={`${styles.actionButton} ${styles.skipButton}`}
+        >
           <X size={24} />
         </button>
         <button
           id="love"
-          className={`${styles.actionButton} ${styles.likeButton}`}>
+          className={`${styles.actionButton} ${styles.likeButton}`}
+        >
           <Heart size={24} />
         </button>
         <button
           id="chat"
-          className={`${styles.actionButton} ${styles.messageButton}`}>
+          className={`${styles.actionButton} ${styles.messageButton}`}
+        >
           <MessageCircleHeart size={24} />
         </button>
       </div>

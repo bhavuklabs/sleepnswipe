@@ -32,36 +32,35 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({
   const navigate = useNavigate();
 
   useEffect(() => {
-    const loginDetails = localStorage.getItem('loginDetails');
+    const loginDetails = localStorage.getItem("loginDetails");
     if (loginDetails) {
       const parsedDetails = JSON.parse(loginDetails);
       setResponses((prev) => ({
         ...prev,
-        email: parsedDetails.email, 
+        email: parsedDetails[0].email,
       }));
     }
   }, []);
-  
+
   useEffect(() => {
-    // Fetch questions from the API
     const fetchQuestions = async () => {
       try {
         const data = await FetchOnboardingQuestions(
           "http://localhost:8080/onboarding/send"
-        ); //api call
+        );
         setQuestions(data.questions);
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
     };
-    
+
     fetchQuestions();
   }, []);
 
   const sendResponses = useCallback(async () => {
     try {
       await SendQuestionnaireResponses(
-        "localhost:8080/onboarding/generate-and-save-scores",
+        "http://localhost:8080/onboarding/generate-and-save-scores",
         responses
       );
     } catch (error) {
@@ -81,7 +80,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({
 
       setTimeout(() => {
         navigate("/");
-      }, 5000);
+      }, 25000);
     }
   }, [
     currentQuestionIndex,
