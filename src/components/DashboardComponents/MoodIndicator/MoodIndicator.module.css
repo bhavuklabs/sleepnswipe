@@ -1,0 +1,108 @@
+.pieChart {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    position: relative;
+}
+
+.title {
+    font-size: 2vh;
+    font-family: "ADLaM Display";
+}
+
+.subtitle {
+    color: #49525D;
+    font-family: ABeeZee;
+    font-size: 1.2vh;
+    font-weight: 500;
+    padding-top: 4px;
+}
+
+
+.chart {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: self-start;
+    margin-top: 20px;
+    position: relative;
+}
+
+.progress {
+    position: absolute;
+    width: 75%;
+    height: 80%;
+    background: conic-gradient(from 180deg,
+            #6CD753 0% 23.84%,
+            rgba(0, 117, 255, 0) 23.84% 81.07%,
+            rgba(0, 0, 0, 1) 81.07% 100%);
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+.innerPie {
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+    width: 85%;
+    height: 85%;
+    background-color: #f8f8f8;
+    border-radius: 100%;
+    z-index: 3;
+}
+
+.mood {
+    display: inherit;
+    justify-content: center;
+    align-items: center;
+    background-color: #6CD753;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+}
+
+.mood>svg {
+    stroke: #f8f8f8;
+}
+
+.scoreCard {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    bottom: 10px;
+    left: 2vw;
+    width: 80%;
+    height: 30%;
+    border-radius: 20px;
+    background: linear-gradient(127deg, rgba(6, 11, 40, 0.74) 28.26%, rgba(10, 14, 35, 0.71) 91.2%);
+    backdrop-filter: blur(60px);
+    font-family: "ADLaM Display";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    z-index: 6;
+    padding: 10px;
+    
+}
+
+.scoreCard>span {
+    width: 12%;
+    color: #A0AEC0;
+}
+
+.score {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 24px;
+    color: #f8f8f8;
+    padding: 5px 0;
+}
+
+.score>span {
+    font-size: 14px;
+}

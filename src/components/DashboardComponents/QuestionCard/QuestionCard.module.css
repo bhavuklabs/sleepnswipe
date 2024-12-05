@@ -1,0 +1,118 @@
+.container {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.title {
+    color: #141B34;
+    -webkit-text-stroke-width: 0.5;
+    -webkit-text-stroke-color: #000;
+    font-family: "ADLaM Display";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+}
+
+.questionBox {
+    width: 100%;
+    height: 100px;
+    padding: 0 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #020515;
+    text-align: center;
+    -webkit-text-stroke-width: 0.5;
+    -webkit-text-stroke-color: #000;
+    font-family: "ADLaM Display";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+
+
+
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 1rem;
+}
+
+.options>button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 49%;
+    padding: 10px 50px;
+    color: #141B33;
+    font-family: "ADLaM Display";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    border-radius: 20px;
+    border: 1px solid #6CD753;
+    background: rgba(108, 215, 83, 0.2);
+    backdrop-filter: blur(60px);
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.options>button:hover {
+    background: rgba(108, 215, 83, 0.5);
+}
+
+.customButton {
+    display: inline-flex;
+    text-align: center;
+    width: 100%;
+    padding: 10px 50px;
+    border-radius: 20px;
+    border: 1px solid #6CD753;
+    background: rgba(108, 215, 83, 0.2);
+    backdrop-filter: blur(60px);
+    color: #141B33;
+    font-family: "ADLaM Display";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+}
+
+.customButton::placeholder {
+    color: rgba(20, 27, 51, 0.4);
+}
+
+
+.reward {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reward > span {
+    color: var(--primary-green-500-success-color, #01B574);
+    text-align: center;
+    -webkit-text-stroke-width: 0.5;
+    -webkit-text-stroke-color: #000;
+    font-family: "ADLaM Display";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+}
+
+.reward > img{
+    width: 28px;
+    height: 28px;
+}

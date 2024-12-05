@@ -1,0 +1,146 @@
+.swipe {
+  width: 80vw;
+  height: 80vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: opacity 0.1s ease-in-out;
+}
+
+.loaded.swipe {
+  opacity: 1;
+}
+
+.swipeCards {
+  flex-grow: 1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+  position: relative;
+  height: 100%;
+}
+
+.swipeCard {
+  display: inline-block;
+  width: 90vw;
+  max-width: 400px;
+  height: 60vh;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  position: absolute;
+  will-change: transform;
+  transition: all 0.3s ease-in-out;
+  cursor: grab;
+  padding-bottom: 0;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2),
+    0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.swipeCard:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3),
+    0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.swipeCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.textBlock {
+  position: absolute;
+    bottom: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+}
+
+
+.swipeCard h3 {
+  margin-top: 16px;
+  font-size: 24px;
+  padding: 0 16px;
+  text-align: center;
+  color: #f8f8f8; 
+}
+
+.swipeCard p {
+  margin-top: 12px;
+  font-size: 16px;
+  padding: 0 16px;
+  text-align: center;
+  color: #ffffffb6; 
+}
+
+
+.actionButtons {
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  width: 60%;
+}
+
+.actionButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 24px;
+  background-color: #fff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 30%;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.actionButton:hover {
+  transform: scale(1.05);
+}
+
+.likeButton {
+  background-color: #4caf50;
+  color: white;
+}
+
+.skipButton {
+  background-color: #f8f8f8;
+  color: #ff4444;
+}
+
+.messageButton {
+  background-color: #f8f8f8;
+  color: #2196f3;
+}
+
+.likeButton svg {
+  fill: white;
+}
+
+.skipButton svg {
+  stroke: #ff4444;
+  stroke-width: 2px;
+}
+
+.messageButton svg {
+  color: #2196f3;
+}
+
+.removed {
+  opacity: 0;
+  pointer-events: none;
+}

@@ -1,0 +1,116 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 1rem;
+}
+
+.card {
+  height: 290px;
+  background-color: #f8f8f8;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.card1 {
+  height: auto;
+  flex-grow: 1;
+  background: url(../../../assets/images/WelcomeCard.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 20px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.card1:hover {
+  transform: scale(1.02);
+}
+
+.welcomeTextContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #020515;
+  font-family: "ADLaM Display";
+  font-style: normal;
+  font-size: 14px;
+}
+
+.username {
+  font-size: 28px;
+}
+
+.description {
+  font-family: "Poppins", serif;
+  font-style: normal;
+}
+
+.boldText {
+  font-weight: bold;
+}
+
+.subDescription {
+  font-family: "Poppins", serif;
+  font-style: normal;
+}
+
+.record {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.card2 {
+  width: 300px;
+  height: auto;
+}
+
+.card3 {
+  width: 350px;
+  padding: 25px 30px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.card4 {
+  height: 380px;
+  width: 60%;
+  padding: 20px;
+}
+
+.chartTitle {
+  font-size: 2vh;
+  font-family: "ADLaM Display";
+}
+
+.chartSubTitle {
+  color: #01B574;
+  font-family: "ADLaM Display";
+  font-size: 1.5vh;
+  font-weight: 500;
+  padding-top: 4px;
+}
+
+.card5 {
+  height: 380px;
+  width: 480px;
+  padding: 20px;
+}
+
+.card6{
+  width: 60%;
+  height: 380px;
+  padding: 20px;
+}
+
+.card7{
+  height: 380px;
+  width: 480px;
+  padding: 20px;
+}

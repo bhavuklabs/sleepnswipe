@@ -1,0 +1,86 @@
+.statsCard {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1 1 calc(25% - 1rem); 
+    max-width: calc(25% - 1rem);
+    box-sizing: border-box;
+}
+
+.iconBox {
+    background-color: rgba(108, 215, 83, 0.72);
+    border-radius: 10px;
+    padding: 0.75rem;
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #F8F8F8;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    flex-grow: 1;
+    padding-left: 1vw;
+}
+
+.title {
+    font-size: 1.6vh;
+    font-weight: 600;
+    color: #49525D;
+    margin-bottom: -8px;
+}
+
+.statsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; 
+}
+
+.stats {
+    font-size: 3vh;
+    font-weight: 700;
+    color: #333439;
+    margin-top: 0.5rem;
+}
+
+.progress {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #4CAF50;
+    margin-top: 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .statsCard {
+        flex: 1 1 calc(50% - 1rem); 
+        max-width: calc(50% - 1rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .statsCard {
+        max-width: 100%;
+        margin: 0.5rem 0;
+    }
+
+    .iconBox {
+        display: none; 
+    }
+
+    .container {
+        padding-left: 0; 
+    }
+
+    .statsContainer {
+        gap: 0.5rem; 
+    }
+}
