@@ -14,3 +14,7 @@ export { default as ImprovementBoard } from './DashboardComponents/ImprovementBo
 export { default as InfoArea } from './InfoArea/InfoArea';
 export { default as MatchZone } from './MatchZone/MatchZone';
 export { default as SwipeCards } from './SwipeCard/SwipeCard';
+
+
+export { default as Error } from './Error/Error';
+export { default as AnalyzingData } from './Loaders/AnalyzingData';
