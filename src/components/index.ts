@@ -17,4 +17,6 @@ export { default as SwipeCards } from './SwipeCard/SwipeCard';
 
 
 export { default as Error } from './Error/Error';
-export { default as AnalyzingData } from './Loaders/AnalyzingData';
+
+export { default as AnalyzingData } from './Loaders/AnalyzingData/AnalyzingData';
+export { default as QuestionnairesDelay } from './Loaders/QuestionnairesDelay/QuestionnairesDelay';

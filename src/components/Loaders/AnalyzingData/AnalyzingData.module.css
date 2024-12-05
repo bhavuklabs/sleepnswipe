@@ -113,6 +113,7 @@
 .loadingDots {
     display: inline-block;
     overflow: hidden;
+    vertical-align: middle;
 }
 
 .loadingDots::after {
