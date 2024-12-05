@@ -3,7 +3,16 @@ import styles from "./InfoArea.module.css";
 import { Coins, Heart, Flame, CreditCard } from "lucide-react";
 import { ContentPanel, StatsCard } from "../../components";
 
-const DashboardMainArea: React.FC = () => {
+interface FlashCardProps {
+  overallSentimentScore: number | undefined;
+  personalityType: string | undefined;
+  emotionalStabilityScore: number | undefined;
+  socialInteractionScore: number | undefined;
+  matchNumbers: number | undefined;
+}
+
+
+const DashboardMainArea: React.FC<FlashCardProps> = ({ matchNumbers, socialInteractionScore }) => {
   return (
     <div className={styles.mainArea}>
       {/* Flash Cards */}
@@ -12,13 +21,13 @@ const DashboardMainArea: React.FC = () => {
           <StatsCard
             title="Tokens"
             icon={<Coins />}
-            stats="53000"
+            stats="567"
             progress={55}
           />
           <StatsCard
             title="Matches"
             icon={<Heart />}
-            stats="472"
+            stats={matchNumbers}
             progress={10}
           />
           <StatsCard
@@ -30,7 +39,7 @@ const DashboardMainArea: React.FC = () => {
           <StatsCard
             title="Amount Spent"
             icon={<CreditCard />}
-            stats="98476"
+            stats="98"
             progress=""
           />
         </div>
@@ -38,7 +47,7 @@ const DashboardMainArea: React.FC = () => {
 
       {/* Main Content */}
       <div className={styles.mainContent}>
-        <ContentPanel />
+        <ContentPanel  socialInteractionScore={socialInteractionScore}/>
       </div>
     </div>
   );

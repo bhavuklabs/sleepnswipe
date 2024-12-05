@@ -4,7 +4,7 @@ import styles from "./StatsCard.module.css";
 interface StatCardProps {
   icon: React.ReactNode;
   title: string;
-  stats: string | number;
+  stats: string | number | undefined;
   progress: number | string;
 }
 

@@ -3,7 +3,15 @@ import styles from "./ContentPanel.module.css";
 import { MoveRight } from "lucide-react";
 import {Calendar,  Chart,  ImprovementBoard,  MoodIndicator, QuestionCard, SentimentScore} from "../../index";
 
-const ContentPanel: React.FC = () => {
+interface ContentPanelProps {
+  socialInteractionScore?: number;
+  overallSentimentScore?: number;
+  personalityType?: string;
+}
+
+const ContentPanel: React.FC<ContentPanelProps> = ({socialInteractionScore = 0, overallSentimentScore = 0, personalityType}) => {
+  const progress = socialInteractionScore*100;
+  const sentimentScore = overallSentimentScore*100;
 
   const data = [
     { Name: 'Krish', Score: 67, Improvement: 55 },
@@ -41,7 +49,7 @@ const ContentPanel: React.FC = () => {
         </div>
       </div>
       <div className={`${styles.card} ${styles.card2}`}>
-        <MoodIndicator progress={78}/>
+        <MoodIndicator progress={progress}/>
       </div>
       <div className={`${styles.card} ${styles.card3}`}>
         <Calendar/>
@@ -52,7 +60,7 @@ const ContentPanel: React.FC = () => {
         <Chart/>
       </div>
       <div className={`${styles.card} ${styles.card5}`}>
-        <SentimentScore sentimentScore={56} sentimentPolarity={"Positive"} sentimentMessage={"Positive vibes! Perfect for new connections."} progressGradient={56}/>
+        <SentimentScore sentimentScore={sentimentScore} sentimentPolarity={personalityType} sentimentMessage={"Positive vibes! Perfect for new connections."} progressGradient={sentimentScore}/>
       </div>
       <div className={`${styles.card} ${styles.card6}`}>
         <QuestionCard />

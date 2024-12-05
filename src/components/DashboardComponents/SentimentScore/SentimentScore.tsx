@@ -4,7 +4,7 @@ import styles from "./SentimentScore.module.css";
 
 interface SentimentScoreCardProps {
   sentimentScore: number;
-  sentimentPolarity: string;
+  sentimentPolarity?: string;
   sentimentMessage: string;
   progressGradient: number;
 }

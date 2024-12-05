@@ -3,10 +3,10 @@ import styles from "./MoodIndicator.module.css";
 import { Smile } from "lucide-react";
 
 interface MoodIndicatorProps {
-  progress: number;
+  progress?: number;
 }
 
-const MoodIndicator: React.FC<MoodIndicatorProps> = ({ progress }) => {
+const MoodIndicator: React.FC<MoodIndicatorProps> = ({ progress = 0}) => {
   const [animatedProgress, setAnimatedProgress] = useState(0);
 
   useEffect(() => {
