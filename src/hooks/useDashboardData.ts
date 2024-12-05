@@ -31,9 +31,14 @@ const useDashboardData = () => {
       return;
     }
 
-    const fetchDashboardData = async () => {
+    const fetchSentimentData = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/user/data', {
+        const sentimentResponse = await axios.post('http://localhost:8080/sentiment/fetch', {
+          email: parsedDetails[0].email,
+        });
+        console.log('Sentiment data fetched:', sentimentResponse);
+
+        const userResponse = await axios.get('http://localhost:8080/user/data', {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -41,22 +46,22 @@ const useDashboardData = () => {
             email: parsedDetails[0].email,
           },
         });
-        
+
+        // Remove the sleep record from the user data
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { sleepRecord, ...dashboardDataWithoutSleepRecord } = response.data;
+        const { sleepRecord, ...dashboardDataWithoutSleepRecord } = userResponse.data;
         setData(dashboardDataWithoutSleepRecord);
-        console.log(response);
-    
+        console.log('User data fetched:', userResponse);
+
       } catch (err) {
         console.error(err);
-        setError('Error fetching dashboard data');
+        setError('Error fetching data');
       } finally {
-        setLoading(false);
+        setLoading(false); 
       }
     };
-    
-    fetchDashboardData();
-    
+
+    fetchSentimentData();
   }, []);
 
   return { data, loading, error };

@@ -1,10 +1,12 @@
 import React from "react";
 import styles from "./Dashboard.module.css";
 import { DashboardNavbar, Sidebar, InfoArea, MatchZone } from "../../components"; 
-import { useActive } from '../../Context/ActiveContext'
+import { useActive } from '../../Context/ActiveContext';
+import  useDashboardData  from '../../hooks/useDashboardData';
 
 const Dashboard: React.FC = () => {
   const { activePath } = useActive();
+  const { data, loading, error } = useDashboardData();
 
   return (
     <div className={styles.container}>
@@ -19,16 +21,20 @@ const Dashboard: React.FC = () => {
           <DashboardNavbar />
         </div>
 
-        {/* Conditional Rendering */}
-        {activePath === "/matchzone" ? (
+        {/* Show loader until data is fetched */}
+        {loading ? (
+          <div className={styles.loader}>Analysing your data and generating your profile...</div>
+        ) : error ? (
+          <div className={styles.error}>{error}</div>
+        ) : activePath === "/matchzone" ? (
           <MatchZone /> 
-        ) : activePath === "/" ? (
+        ) : activePath === "/" && data ? (
           <InfoArea
-            overallSentimentScore={0.56}
-            personalityType={"Positive"}
-            emotionalStabilityScore={0.78}
-            socialInteractionScore={0.67}
-            matchNumbers={34}
+            overallSentimentScore={data.overallSentimentScore}
+            personalityType={data.personalityType}
+            emotionalStabilityScore={data.emotionalStabilityScore}
+            socialInteractionScore={data.socialInteractionScore}
+            matchNumbers={data.matchNumbers}
           /> 
         ) : (
           <div>Select a valid route.</div> 

@@ -152,4 +152,22 @@
     color: #333333; 
     line-height: 1.5;
   }
+
+
+  .loader {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 4rem;
+    height: 100vh; 
+    background-color: #f9f9f9; 
+  }
+  
+  .loader h2 {
+    font-size: 1.5rem;
+    color: #555; 
+    margin-bottom: 1rem;
+    text-align: center;
+  }
   

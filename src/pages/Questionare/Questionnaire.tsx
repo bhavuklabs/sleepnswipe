@@ -7,6 +7,16 @@ import {
   SendQuestionnaireResponses,
 } from "../../hooks";
 
+interface Question {
+  question: string;
+  options: string[];
+}
+
+interface Response {
+  question: string;
+  options: string;
+}
+
 interface QuestionnaireProps {
   setIsAuthenticated: (value: boolean) => void;
 }
@@ -14,20 +24,19 @@ interface QuestionnaireProps {
 const Questionnaire: React.FC<QuestionnaireProps> = ({
   setIsAuthenticated,
 }) => {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [responses, setResponses] = useState<{
     email: string;
-    responses: Array<{ question: string; options: string }>;
+    responses: Response[];
   }>({
-    email: "", // Add the user's email here
+    email: "",
     responses: [],
   });
-  const [animationKey, setAnimationKey] = useState(0);
-  const [width, setWidth] = useState(100);
-  const [isCompleted, setIsCompleted] = useState(false);
-  const [questions, setQuestions] = useState<
-    Array<{ question: string; options: string[] }>
-  >([]);
+  const [animationKey, setAnimationKey] = useState<number>(0);
+  const [width, setWidth] = useState<number>(100);
+  const [isCompleted, setIsCompleted] = useState<boolean>(false);
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [loading, setLoading] = useState<boolean>(true); 
 
   const navigate = useNavigate();
 
@@ -37,7 +46,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({
       const parsedDetails = JSON.parse(loginDetails);
       setResponses((prev) => ({
         ...prev,
-        email: parsedDetails[0].email,
+        email: parsedDetails[0]?.email || "",
       }));
     }
   }, []);
@@ -45,12 +54,15 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
+        setLoading(true); 
         const data = await FetchOnboardingQuestions(
           "http://localhost:8080/onboarding/send"
         );
         setQuestions(data.questions);
       } catch (error) {
         console.error("Error fetching questions:", error);
+      } finally {
+        setLoading(false); 
       }
     };
 
@@ -80,7 +92,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({
 
       setTimeout(() => {
         navigate("/");
-      }, 25000);
+      }, 5000);
     }
   }, [
     currentQuestionIndex,
@@ -118,6 +130,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({
         return prevWidth - 2;
       });
     }, 300);
+
     return () => clearInterval(interval);
   }, [handleTimeOut, isCompleted, questions]);
 
@@ -143,7 +156,11 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({
         <span className={styles.title}>SleepNSwipe</span>
       </header>
 
-      {!isCompleted && questions.length > 0 ? (
+      {loading ? ( 
+        <div className={styles.loader}>
+          <h2>Loading Questionnaire...</h2>
+        </div>
+      ) : !isCompleted && questions.length > 0 ? (
         <>
           <div className={styles.timerBarContainer}>
             <div
