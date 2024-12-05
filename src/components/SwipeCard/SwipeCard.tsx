@@ -1,17 +1,52 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "./SwipeCard.module.css";
 import Hammer from "hammerjs";
 import { Heart, X, MessageCircleHeart } from "lucide-react";
 
+// Define an interface for card data
+interface CardData {
+  id: number;
+  imageUrl: string;
+  name: string;
+  description: string;
+}
+
 const SwipeCards: React.FC = () => {
-  // State to store fetched Unsplash images
-  const [images, setImages] = useState<string[]>([]);
+  // State to store cards
+  const [cards, setCards] = useState<CardData[]>([]);
+  
+  // Refs for DOM elements
+  const swipeContainerRef = useRef<HTMLDivElement>(null);
+  const nopeButtonRef = useRef<HTMLButtonElement>(null);
+  const loveButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Generate initial demo cards if no images are fetched
+  const generateDemoCards = (): CardData[] => [
+    {
+      id: 1,
+      imageUrl: "https://picsum.photos/600/300?random=1",
+      name: "Demo Card 1",
+      description: "This is a demo for swipe-like cards"
+    },
+    {
+      id: 2,
+      imageUrl: "https://picsum.photos/600/300?random=2", 
+      name: "Demo Card 2",
+      description: "Another demo card to showcase functionality"
+    },
+    {
+      id: 3,
+      imageUrl: "https://picsum.photos/600/300?random=3",
+      name: "Demo Card 3", 
+      description: "Third demo card in the sequence"
+    }
+  ];
 
   useEffect(() => {
     // Fetch images from Unsplash API
     const fetchImages = async () => {
       const accessKey = "iqbaNGfK_62oWEeq0ODZ6kUiZIsDJA0d4CZdvkYVPNk"; 
-      const url = `https://api.unsplash.com/search/photos?query=woman+full+body&per_page=5`;
+      const url = `https://api.unsplash.com/search/photos?query=woman+full+body&per_page=10`;
 
       try {
         const response = await fetch(url, {
@@ -22,25 +57,32 @@ const SwipeCards: React.FC = () => {
 
         const data = await response.json();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const imageUrls = data.results.map((photo: any) => photo.urls.regular); 
-        setImages(imageUrls);
+        const fetchedCards: CardData[] = data.results.map((photo: any, index: number) => ({
+          id: index + 1,
+          imageUrl: photo.urls.regular,
+          name: `Card ${index + 1}`,
+          description: "This is a demo for swipe-like cards"
+        }));
+
+        setCards(fetchedCards.length > 0 ? fetchedCards : generateDemoCards());
       } catch (error) {
         console.error("Error fetching images from Unsplash:", error);
+        setCards(generateDemoCards());
       }
     };
 
     fetchImages();
+  }, []);
 
-    // Swipe functionality
-    const allCards = Array.from(
-      document.querySelectorAll(`.${styles.swipeCard}`)
+  useEffect(() => {
+    if (cards.length === 0) return;
+
+    const swipeContainer = swipeContainerRef.current;
+    if (!swipeContainer) return;
+
+    const cardElements = Array.from(
+      swipeContainer.querySelectorAll(`.${styles.swipeCard}`)
     ) as HTMLElement[];
-
-    const swipeContainer = document.querySelector(
-      `.${styles.swipe}`
-    ) as HTMLElement;
-    const nope = document.getElementById("nope");
-    const love = document.getElementById("love");
 
     const moveOutWidth = document.body.clientWidth * 1.5;
 
@@ -59,7 +101,7 @@ const SwipeCards: React.FC = () => {
     };
 
     const reorderCards = () => {
-      const remainingCards = document.querySelectorAll(
+      const remainingCards = swipeContainer.querySelectorAll(
         `.${styles.swipeCard}:not(.${styles.removed})`
       ) as NodeListOf<HTMLElement>;
 
@@ -98,7 +140,7 @@ const SwipeCards: React.FC = () => {
     };
 
     const createButtonListener = (isRightSwipe: boolean) => () => {
-      const cards = document.querySelectorAll(
+      const cards = swipeContainer.querySelectorAll(
         `.${styles.swipeCard}:not(.${styles.removed})`
       ) as NodeListOf<HTMLElement>;
 
@@ -107,45 +149,53 @@ const SwipeCards: React.FC = () => {
       handleSwipe(card, isRightSwipe);
     };
 
-    allCards.forEach((card) => {
+    // Initialize Hammer for each card
+    cardElements.forEach((card) => {
       initHammer(card);
     });
 
-    if (nope) nope.addEventListener("click", createButtonListener(false));
-    if (love) love.addEventListener("click", createButtonListener(true));
-  }, []);
+    // Add click listeners to buttons
+    const nopeButton = nopeButtonRef.current;
+    const loveButton = loveButtonRef.current;
+
+    if (nopeButton) nopeButton.addEventListener("click", createButtonListener(false));
+    if (loveButton) loveButton.addEventListener("click", createButtonListener(true));
+
+    // Cleanup function
+    return () => {
+      if (nopeButton) nopeButton.removeEventListener("click", createButtonListener(false));
+      if (loveButton) loveButton.removeEventListener("click", createButtonListener(true));
+    };
+  }, [cards]);
 
   return (
-    <div className={styles.swipe}>
+    <div className={styles.swipe} ref={swipeContainerRef}>
       <div className={styles.swipeCards}>
-        {images.length > 0
-          ? images.map((url, index) => (
-              <div key={index} id={`card-${index}`} className={styles.swipeCard}>
-                <img src={url} alt={`Card ${index}`} />
-                <h3>Demo card {index + 1}</h3>
-                <p>This is a demo for swipe-like cards</p>
-              </div>
-            ))
-          : [1, 2, 3, 4, 5].map((index) => (
-              <div key={index} id={`card-${index}`} className={styles.swipeCard}>
-                <img
-                  src={`https://picsum.photos/600/300?random=${index}`}
-                  alt={`Card ${index}`}
-                />
-                <h3>Demo card {index}</h3>
-                <p>This is a demo for swipe-like cards</p>
-              </div>
-            ))}
+        {cards.map((card) => (
+          <div 
+            key={card.id} 
+            id={`card-${card.id}`} 
+            className={styles.swipeCard}
+          >
+            <img src={card.imageUrl} alt={card.name} />
+            <div className={styles.textBlock}>
+            <h3>{card.name}</h3>
+            <p>{card.description}</p>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className={styles.actionButtons}>
         <button
+          ref={nopeButtonRef}
           id="nope"
           className={`${styles.actionButton} ${styles.skipButton}`}
         >
           <X size={24} />
         </button>
         <button
+          ref={loveButtonRef}
           id="love"
           className={`${styles.actionButton} ${styles.likeButton}`}
         >

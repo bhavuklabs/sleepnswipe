@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import styles from "./Questionnaire.module.css";
 import { Logo } from "../../assets/images";
 import { useNavigate } from "react-router-dom";
@@ -36,9 +36,12 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({
   const [width, setWidth] = useState<number>(100);
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [loading, setLoading] = useState<boolean>(true); 
+  const [loading, setLoading] = useState<boolean>(true);
 
   const navigate = useNavigate();
+
+  const hasSentResponses = useRef(false); // Ref to track if responses have been sent
+  const hasFetchedQuestions = useRef(false); // Ref to track if questions have been fetched
 
   useEffect(() => {
     const loginDetails = localStorage.getItem("loginDetails");
@@ -53,28 +56,33 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({
 
   useEffect(() => {
     const fetchQuestions = async () => {
+      if (hasFetchedQuestions.current) return; // Prevent re-fetching
+
       try {
-        setLoading(true); 
+        setLoading(true);
         const data = await FetchOnboardingQuestions(
           "http://localhost:8080/onboarding/send"
         );
         setQuestions(data.questions);
+        hasFetchedQuestions.current = true; // Mark as fetched
       } catch (error) {
         console.error("Error fetching questions:", error);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
     fetchQuestions();
-  }, []);
+  }, []); // Empty dependency array ensures this runs only once
 
   const sendResponses = useCallback(async () => {
+    if (hasSentResponses.current) return; // Prevent multiple sends
     try {
       await SendQuestionnaireResponses(
         "http://localhost:8080/onboarding/generate-and-save-scores",
         responses
       );
+      hasSentResponses.current = true; // Mark as sent
     } catch (error) {
       console.error("Error sending responses to backend:", error);
     }
@@ -88,11 +96,11 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({
     } else {
       setIsCompleted(true);
       setIsAuthenticated(true);
-      sendResponses();
+      sendResponses(); // Send responses only once
 
       setTimeout(() => {
-        navigate("/");
-      }, 5000);
+        navigate("/"); // Redirect after sending responses
+      }, 5000); // Wait 5 seconds before redirect
     }
   }, [
     currentQuestionIndex,
@@ -156,7 +164,7 @@ const Questionnaire: React.FC<QuestionnaireProps> = ({
         <span className={styles.title}>SleepNSwipe</span>
       </header>
 
-      {loading ? ( 
+      {loading ? (
         <div className={styles.loader}>
           <h2>Loading Questionnaire...</h2>
         </div>

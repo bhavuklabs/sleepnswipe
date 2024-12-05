@@ -12,57 +12,27 @@
   opacity: 1;
 }
 
-.swipeStatus {
-  position: absolute;
-  top: 50%;
-  margin-top: -30px;
-  z-index: 2;
-  width: 100%;
-  text-align: center;
-  pointer-events: none;
-}
-
-.swipeStatus i {
-  font-size: 100px;
-  opacity: 0;
-  transform: scale(0.3);
-  transition: all 0.2s ease-in-out;
-  position: absolute;
-  width: 100px;
-  margin-left: -50px;
-}
-
-.swipeLove .fa-heart {
-  opacity: 0.7;
-  transform: scale(1);
-}
-
-.swipeNope .fa-remove {
-  opacity: 0.7;
-  transform: scale(1);
-}
-
 .swipeCards {
   flex-grow: 1;
   text-align: center;
   display: flex;
   justify-content: center;
   z-index: 1;
+  position: relative;
+  height: 100%;
 }
 
 .swipeCard {
   display: inline-block;
   width: 90vw;
   max-width: 400px;
-  height: 70vh;
-  background: black;
+  height: 60vh;
+  background: white;
   border-radius: 8px;
   overflow: hidden;
   position: absolute;
   will-change: transform;
   transition: all 0.3s ease-in-out;
-  cursor: -webkit-grab;
-  cursor: -moz-grab;
   cursor: grab;
   padding-bottom: 0;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2),
@@ -74,14 +44,6 @@
     0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
-
-.moving.swipeCard {
-  transition: none;
-  cursor: -webkit-grabbing;
-  cursor: -moz-grabbing;
-  cursor: grabbing;
-}
-
 .swipeCard img {
   width: 100%;
   height: 100%;
@@ -89,45 +51,66 @@
   object-position: center;
   display: block;
   pointer-events: none;
+  z-index: 2;
 }
 
+.textBlock {
+  position: absolute;
+    bottom: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+}
+
+
 .swipeCard h3 {
-  margin-top: 32px;
-  font-size: 32px;
+  margin-top: 16px;
+  font-size: 24px;
   padding: 0 16px;
-  pointer-events: none;
+  text-align: center;
+  color: #f8f8f8; 
 }
 
 .swipeCard p {
-  margin-top: 24px;
-  font-size: 20px;
+  margin-top: 12px;
+  font-size: 16px;
   padding: 0 16px;
-  pointer-events: none;
+  text-align: center;
+  color: #ffffffb6; 
 }
+
 
 .actionButtons {
   display: flex;
   justify-content: space-around;
   margin: 0 auto;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   width: 60%;
 }
 
 .actionButton {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 10px 20px;
+  padding: 12px 24px;
   background-color: #fff;
   border: none;
   border-radius: 25px;
-  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
   width: 30%;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
+.actionButton:hover {
+  transform: scale(1.05);
+}
 
 .likeButton {
   background-color: #4caf50;
@@ -136,18 +119,28 @@
 
 .skipButton {
   background-color: #f8f8f8;
-  color: rgb(113, 250, 63);
+  color: #ff4444;
 }
 
-.likeButton>svg {
+.messageButton {
+  background-color: #f8f8f8;
+  color: #2196f3;
+}
+
+.likeButton svg {
   fill: white;
 }
 
-.skipButton>svg {
-  stroke-width: 3px;
+.skipButton svg {
+  stroke: #ff4444;
+  stroke-width: 2px;
 }
 
-.messageButton>svg {
-  color: rgb(113, 250, 63);
+.messageButton svg {
+  color: #2196f3;
 }
 
+.removed {
+  opacity: 0;
+  pointer-events: none;
+}

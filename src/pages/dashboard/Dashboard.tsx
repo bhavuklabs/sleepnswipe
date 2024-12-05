@@ -1,12 +1,25 @@
 import React from "react";
 import styles from "./Dashboard.module.css";
-import { DashboardNavbar, Sidebar, InfoArea, MatchZone } from "../../components"; 
+import { DashboardNavbar, Sidebar, InfoArea, MatchZone } from "../../components";
 import { useActive } from '../../Context/ActiveContext';
-import  useDashboardData  from '../../hooks/useDashboardData';
+import useDashboardData from '../../hooks/useDashboardData';
 
 const Dashboard: React.FC = () => {
   const { activePath } = useActive();
-  const { data, loading, error } = useDashboardData();
+  let { data, loading, error } = useDashboardData();
+
+  data = {
+      "overallSentimentScore": 0.68,
+      "personalityType": "ENFJ",
+      "emotionalStabilityScore": 0.0,
+      "socialInteractionScore": 0.85,
+      "matchNumbers": 2
+  };
+
+  loading = false;
+
+  error = '';
+
 
   return (
     <div className={styles.container}>
@@ -27,7 +40,7 @@ const Dashboard: React.FC = () => {
         ) : error ? (
           <div className={styles.error}>{error}</div>
         ) : activePath === "/matchzone" ? (
-          <MatchZone /> 
+          <MatchZone />
         ) : activePath === "/" && data ? (
           <InfoArea
             overallSentimentScore={data.overallSentimentScore}
@@ -35,9 +48,9 @@ const Dashboard: React.FC = () => {
             emotionalStabilityScore={data.emotionalStabilityScore}
             socialInteractionScore={data.socialInteractionScore}
             matchNumbers={data.matchNumbers}
-          /> 
+          />
         ) : (
-          <div>Select a valid route.</div> 
+          <div>Select a valid route.</div>
         )}
       </div>
     </div>

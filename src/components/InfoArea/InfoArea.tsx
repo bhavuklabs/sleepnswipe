@@ -12,7 +12,7 @@ interface FlashCardProps {
 }
 
 
-const DashboardMainArea: React.FC<FlashCardProps> = ({ matchNumbers, socialInteractionScore }) => {
+const DashboardMainArea: React.FC<FlashCardProps> = ({ matchNumbers, socialInteractionScore, overallSentimentScore, personalityType }) => {
   return (
     <div className={styles.mainArea}>
       {/* Flash Cards */}
@@ -47,7 +47,7 @@ const DashboardMainArea: React.FC<FlashCardProps> = ({ matchNumbers, socialInter
 
       {/* Main Content */}
       <div className={styles.mainContent}>
-        <ContentPanel  socialInteractionScore={socialInteractionScore}/>
+        <ContentPanel  socialInteractionScore={socialInteractionScore} overallSentimentScore={overallSentimentScore} personalityType={personalityType}/>
       </div>
     </div>
   );
